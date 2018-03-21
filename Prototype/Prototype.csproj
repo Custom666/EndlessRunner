@@ -287,7 +287,6 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\BoundaryModel.cs" />
     <Compile Include="Assets\Scripts\FauxGravityAttractor.cs" />
-    <Compile Include="Assets\Scripts\FollowCamera.cs" />
     <Compile Include="Assets\Scripts\PlanetRotor.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
   </ItemGroup>

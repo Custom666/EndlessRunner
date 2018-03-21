@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -38,18 +39,23 @@ namespace Assets.Scripts
         
         private void FixedUpdate()
         {
-            var tempPosition = _rigidbody.position;
+            transform.position += transform.TransformDirection(_move * Speed * Time.deltaTime);
 
-            tempPosition += transform.TransformDirection(_move * Speed * Time.deltaTime);
+            var x = Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)
+                ? Mathf.Clamp(transform.position.x, Boundaries.XMin, Boundaries.XMax)
+                : Mathf.Lerp(transform.position.x, 0f, Time.deltaTime);
 
-            _rigidbody.position = new Vector3
+            transform.position = new Vector3
                 (
-                    Mathf.Clamp(tempPosition.x, Boundaries.XMin, Boundaries.XMax),
-                    tempPosition.y,
-                    tempPosition.z
+                    x,
+                    transform.position.y,
+                    transform.position.z
                 );
-
+            
             Attractor.Attract(transform);
+
+            if (Input.GetButtonDown("Jump"))
+                _rigidbody.AddForce(Vector3.up * Jump * (transform.position.y > 0f ? 1f : -1f), ForceMode.Impulse);
         }
     }
 }
