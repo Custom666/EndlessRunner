@@ -12,8 +12,6 @@ namespace Assets.Scripts
         
         public BoundaryModel Boundaries;
 
-        public FauxGravityAttractor Attractor;
-
         #endregion  
 
         private Rigidbody _rigidbody;
@@ -52,8 +50,6 @@ namespace Assets.Scripts
                     transform.position.z
                 );
             
-            Attractor.Attract(transform);
-
             if (Input.GetButtonDown("Jump"))
                 _rigidbody.AddForce(Vector3.up * Jump * (transform.position.y > 0f ? 1f : -1f), ForceMode.Impulse);
         }
