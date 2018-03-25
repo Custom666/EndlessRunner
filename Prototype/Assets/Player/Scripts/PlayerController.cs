@@ -35,5 +35,10 @@ namespace Assets.Player.Scripts
         {
             if (string.CompareOrdinal("Planet", other.gameObject.name) == 0) _isGrounded = true;
         }
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (string.CompareOrdinal("Planet", other.gameObject.name) == 0) _isGrounded = true;
+        }
     }
 }
