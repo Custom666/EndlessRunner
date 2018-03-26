@@ -1,5 +1,7 @@
 ﻿using System;
+using Assets.Planet.Scripts;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Player.Scripts
 {
@@ -7,38 +9,49 @@ namespace Assets.Player.Scripts
     {
         public float Jump = 5f;
 
-        private Rigidbody2D _rigidbody;
-        private Animator _animator;
+        public Text HealthText;
 
-        private float _distToGround;
+        public PlanetRotation Planet;
+
+        private Rigidbody _rigidbody;
+        private Animator _animator;
+        
         private bool _isGrounded = true;
+        private int _health = 5;
+
+        public bool IsGrounded { set { Planet.CanRotate = _isGrounded = value; } }
 
         // Use this for initialization
         private void Start()
         {
-            _rigidbody = GetComponent<Rigidbody2D>();
+            _rigidbody = GetComponent<Rigidbody>();
             _animator = GetComponent<Animator>();
-
-            _distToGround = GetComponent<Collider2D>().bounds.extents.y;
+           
+            HealthText.text = _health.ToString();
         }
 
         private void FixedUpdate()
         {
             if (Input.GetButtonDown("Jump") && _isGrounded)
             {
-                _rigidbody.AddForce(Vector2.up * Jump, ForceMode2D.Impulse);
-                _isGrounded = false;
+                _rigidbody.AddForce(Vector2.up * Jump, ForceMode.Impulse);
+                IsGrounded = false;
             }
         }
         
-        private void OnCollisionEnter2D(Collision2D other)
+        private void OnCollisionEnter(Collision other)
         {
-            if (string.CompareOrdinal("Planet", other.gameObject.name) == 0) _isGrounded = true;
+            if (string.CompareOrdinal("Planet", other.gameObject.name) == 0) IsGrounded = true;
         }
 
-        private void OnTriggerEnter2D(Collider2D other)
+        private void OnTriggerEnter(Collider other)
         {
-            if (string.CompareOrdinal("Planet", other.gameObject.name) == 0) _isGrounded = true;
+            if (other.gameObject.CompareTag("Obstacle"))
+            {
+                _health -= 1;
+
+                HealthText.text = _health.ToString();
+            }
         }
     }
 }
