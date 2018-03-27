@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4480838558595498}
   - component: {fileID: 114815375184478624}
+  - component: {fileID: 114617472349488604}
   m_Layer: 0
   m_Name: MiddleObstaclesSpawn
   m_TagString: Untagged
@@ -70,6 +71,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &114617472349488604
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1131756095411776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46c0a90fd4053124fa912ae1816169d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SpawnInterval: 5.33
+  Obstacle: {fileID: 1321055906619010, guid: f57606651c704024bbae72a3325f8a7b, type: 2}
+  Origin: {fileID: 4407651160887464}
 --- !u!114 &114706635553715456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae62497053888548bffb713c0e12cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 25
+  Speed: 30
 --- !u!114 &114815375184478624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -93,6 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c0a90fd4053124fa912ae1816169d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnInterval: 5
+  SpawnInterval: 3.33
   Obstacle: {fileID: 1558199676054444, guid: 85ad8464324df6f43a6dbbe9cacc9ece, type: 2}
   Origin: {fileID: 4407651160887464}

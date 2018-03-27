@@ -24,10 +24,8 @@ namespace Assets.Obstacles.Scripts
 
             if (!(_deltaTime <= 0f)) return;
 
-            var obstacle = Instantiate(Obstacle, transform.position, transform.localRotation);
+            Instantiate(Obstacle, transform.position, Obstacle.transform.localRotation, Origin);
             
-            obstacle.transform.parent = Origin;
-
             _deltaTime = SpawnInterval;
         }
     }
