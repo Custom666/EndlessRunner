@@ -21,7 +21,7 @@ namespace Assets.Obstacles.Scripts
         private void FixedUpdate()
         {
             if (Math.Abs(Time.fixedTime % SpawnInterval) > 0.01f) return;
-
+            
             var randomIndex = Random.Range(0, Obstacles.Count + 1);
             
             if(randomIndex == Obstacles.Count) return;

@@ -7,7 +7,12 @@ namespace Assets.Obstacles.Scripts
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (string.CompareOrdinal("Destroyer", other.gameObject.name) == 0) Destroy(gameObject);
+            switch (other.gameObject.name)
+            {
+                case "Destroyer":
+                    Destroy(gameObject);
+                    break;
+            }
         }
     }
 }
