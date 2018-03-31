@@ -48,18 +48,35 @@ namespace Assets.Player.Scripts
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.CompareTag("Obstacle"))
+            switch (other.gameObject.tag)
             {
-                _health -= 1;
+                default: return;
 
-                HealthText.text = _health.ToString();
+                case "Obstacle":
 
-                if (_health <= 0)
-                {
+                    _health -= 1;
+
+                    HealthText.text = _health.ToString();
+
+                    if (_health <= 0)
+                    {
+                        Time.timeScale = 0f;
+
+                        GameOverPanel.SetActive(true);
+                    }
+
+                    break;
+                case "Crater":
+
+                    _health = 0;
+
+                    HealthText.text = _health.ToString();
+
                     Time.timeScale = 0f;
 
                     GameOverPanel.SetActive(true);
-                }
+
+                    break;
             }
         }
     }

@@ -19,7 +19,7 @@ namespace Assets.Planet.Scripts
         {
             if (Mathf.Abs(Time.fixedTime % 15f) < 0.00001f) Speed += .3f;
 
-            _renderer.material.mainTextureOffset += new Vector2(0, Speed * Time.deltaTime);
+            _renderer.material.mainTextureOffset += new Vector2(0, -Speed * Time.deltaTime);
         }
     }
 }
