@@ -1,32 +1,36 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Obstacles.Scripts
 {
+    [Serializable]
     public class SpawnController : MonoBehaviour
     {
-        public float SpawnInterval = 5f;
+        public float SpawnInterval = 3f;
 
-        public GameObject Obstacle;
+        public float Deflection = 0f;
+
+        [SerializeField]
+        public List<GameObject> Obstacles;
 
         public Transform Origin;
-
-        private float _deltaTime;
-
-        private void Start()
-        {
-            _deltaTime = SpawnInterval;
-        }
-
+        
         // Update is called once per frame
         private void FixedUpdate()
         {
-            _deltaTime -= Time.fixedDeltaTime;
+            if (Math.Abs(Time.fixedTime % SpawnInterval) > 0.01f) return;
 
-            if (!(_deltaTime <= 0f)) return;
-
-            Instantiate(Obstacle, transform.position, Obstacle.transform.localRotation, Origin);
+            var randomIndex = Random.Range(0, Obstacles.Count + 1);
             
-            _deltaTime = SpawnInterval;
+            if(randomIndex == Obstacles.Count) return;
+            
+            var obstacle = Instantiate(Obstacles[randomIndex], transform);
+
+            obstacle.transform.localEulerAngles += Vector3.forward * Deflection;
+
+            obstacle.transform.parent = Origin;
         }
     }
 }

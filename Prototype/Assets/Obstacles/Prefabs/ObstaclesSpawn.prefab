@@ -9,34 +9,33 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1131756095411776}
+  m_RootGameObject: {fileID: 1001424156782824}
   m_IsPrefabParent: 1
---- !u!1 &1131756095411776
+--- !u!1 &1001424156782824
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4480838558595498}
-  - component: {fileID: 114815375184478624}
-  - component: {fileID: 114617472349488604}
+  - component: {fileID: 4407360361222560}
+  - component: {fileID: 114516295042755412}
   m_Layer: 0
-  m_Name: MiddleObstaclesSpawn
+  m_Name: ObstaclesSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &1815024959428142
+--- !u!1 &1160135841767522
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4407651160887464}
-  - component: {fileID: 114706635553715456}
+  - component: {fileID: 4496824344304538}
+  - component: {fileID: 114334335434845594}
   m_Layer: 0
   m_Name: RotationOrigin
   m_TagString: Untagged
@@ -44,70 +43,60 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4407651160887464
+--- !u!4 &4407360361222560
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1815024959428142}
+  m_GameObject: {fileID: 1001424156782824}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -15, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4480838558595498}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &4480838558595498
-Transform:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1131756095411776}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 15}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4407651160887464}
+  - {fileID: 4496824344304538}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!114 &114617472349488604
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4496824344304538
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1160135841767522}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4, y: -14.400002, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4407360361222560}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114334335434845594
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1131756095411776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 46c0a90fd4053124fa912ae1816169d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SpawnInterval: 5.33
-  Obstacle: {fileID: 1321055906619010, guid: f57606651c704024bbae72a3325f8a7b, type: 2}
-  Origin: {fileID: 4407651160887464}
---- !u!114 &114706635553715456
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1815024959428142}
+  m_GameObject: {fileID: 1160135841767522}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aae62497053888548bffb713c0e12cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 30
---- !u!114 &114815375184478624
+  Speed: 50
+--- !u!114 &114516295042755412
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1131756095411776}
+  m_GameObject: {fileID: 1001424156782824}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 46c0a90fd4053124fa912ae1816169d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SpawnInterval: 3.33
-  Obstacle: {fileID: 1558199676054444, guid: 85ad8464324df6f43a6dbbe9cacc9ece, type: 2}
-  Origin: {fileID: 4407651160887464}
+  SpawnInterval: 5
+  Deflection: 0
+  Obstacles:
+  - {fileID: 1321055906619010, guid: f57606651c704024bbae72a3325f8a7b, type: 2}
+  - {fileID: 1337561173975288, guid: bff227b4282e4eb448bb85c33e2b7853, type: 2}
+  - {fileID: 1558199676054444, guid: 85ad8464324df6f43a6dbbe9cacc9ece, type: 2}
+  Origin: {fileID: 4496824344304538}

@@ -285,12 +285,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Obstacles\Scripts\DestroyObstacle.cs" />
+    <Compile Include="Assets\Obstacles\Scripts\Obstacle.cs" />
     <Compile Include="Assets\Obstacles\Scripts\ObstaclesController.cs" />
     <Compile Include="Assets\Obstacles\Scripts\SpawnController.cs" />
     <Compile Include="Assets\Planet\Scripts\MaterialTranslation.cs" />
     <Compile Include="Assets\Planet\Scripts\PlanetRotation.cs" />
     <Compile Include="Assets\Player\Scripts\PlayerController.cs" />
+    <Compile Include="Assets\UI\Scripts\UI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />

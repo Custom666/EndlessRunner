@@ -13,6 +13,8 @@ namespace Assets.Player.Scripts
 
         public PlanetRotation Planet;
 
+        public GameObject GameOverPanel;
+
         private Rigidbody _rigidbody;
         private Animator _animator;
         
@@ -51,6 +53,13 @@ namespace Assets.Player.Scripts
                 _health -= 1;
 
                 HealthText.text = _health.ToString();
+
+                if (_health <= 0)
+                {
+                    Time.timeScale = 0f;
+
+                    GameOverPanel.SetActive(true);
+                }
             }
         }
     }
