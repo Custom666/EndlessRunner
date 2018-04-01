@@ -16,8 +16,9 @@ namespace Assets.Planet.Scripts
         {
             if (!CanRotate) return;
 
-            if (Input.GetKeyDown(KeyCode.LeftArrow)) _horizontalMove = Mathf.Clamp(_horizontalMove - 1, -1, 1);
-            if (Input.GetKeyDown(KeyCode.RightArrow)) _horizontalMove = Mathf.Clamp(_horizontalMove + 1, -1, 1);
+            var horizontal = Input.GetAxis("Horizontal").CompareTo(0f);
+
+            if (Input.GetButtonDown("Horizontal")) _horizontalMove = Mathf.Clamp(_horizontalMove + horizontal, -1, 1);
         }
 
         // Update is called once per frame
