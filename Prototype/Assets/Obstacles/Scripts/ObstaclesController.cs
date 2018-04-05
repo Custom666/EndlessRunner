@@ -1,18 +1,17 @@
 ﻿using System;
+using Assets.Planet.Scripts;
 using UnityEngine;
 
 namespace Assets.Obstacles.Scripts
 {
     public class ObstaclesController : MonoBehaviour
     {
-        public float Speed = 20f;
-        
+        public RotationSpeedManager SpeedManager;
+
         // Update is called once per frame
         private void FixedUpdate()
         {
-            if (Mathf.Abs(Time.fixedTime % 15f) < 0.00001f) Speed += 10f;
-
-            transform.Rotate(Vector3.left, Speed * Time.deltaTime, Space.Self);
+            transform.Rotate(Vector3.left, SpeedManager.Speed * Time.deltaTime, Space.Self);
         }
     }
 }

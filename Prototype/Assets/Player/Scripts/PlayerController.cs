@@ -48,7 +48,12 @@ namespace Assets.Player.Scripts
                 Planet.CanRotate = true;
                 
                 if (Input.GetButtonDown("Jump"))
-                    _rigidbody.AddForce(Vector2.up * Jump, ForceMode.Impulse);
+                {
+                    var force = Vector2.up * Jump;
+                    
+                    Debug.Log(force);
+                    _rigidbody.AddForce(force, ForceMode.Impulse);
+                }
             }           
             else Planet.CanRotate = false;
         }

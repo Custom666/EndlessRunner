@@ -49,6 +49,11 @@ namespace Assets.UI.Scripts
         {
             _playerHealth.text = "Healths: " + health;
 
+            #if UNITY_EDITOR
+                return;
+            #endif
+
+
             if (health <= 0)
             {
                 Time.timeScale = 0f;
