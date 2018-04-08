@@ -14,8 +14,10 @@ namespace Assets.Player.Scripts
 
         public static event OnHealthChanged OnHealthChangedEvent;
 
-        public float Jump = 5f;
-        
+        public float Jump = 15f;
+
+        public Vector3 AddedGravity = new Vector3(0f, -1f, 0f); 
+
         public PlanetRotation Planet;
 
         public GameObject GameOverPanel;
@@ -46,22 +48,28 @@ namespace Assets.Player.Scripts
             if (isGrounded())
             {
                 Planet.CanRotate = true;
-                
+                Physics.gravity = Vector3.down * 9.81f;
+
                 if (Input.GetButtonDown("Jump"))
                 {
-                    var force = Vector2.up * Jump;
-                    
+                    var force = Vector3.up * Jump;
+
                     Debug.Log(force);
                     _rigidbody.AddForce(force, ForceMode.Impulse);
                 }
-            }           
-            else Planet.CanRotate = false;
+            }
+            else
+            {
+                Planet.CanRotate = false;
+
+                Physics.gravity += AddedGravity;
+            }
         }
         
         private bool isGrounded()
         {
-            return Physics.Raycast(transform.position + new Vector3(transform.localScale.x / 2f, -transform.localScale.y / 2f, 0f), Vector3.down, 1f) ||
-                   Physics.Raycast(transform.position - new Vector3(transform.localScale.x / 2f, transform.localScale.y / 2f, 0f), Vector3.down, 1f);
+            Debug.DrawRay(transform.position + new Vector3(0f, -transform.localScale.y / 2f, 0f), Vector3.down, Color.cyan, .5f);
+            return Physics.Raycast(transform.position + new Vector3(0f, -transform.localScale.y / 2f, 0f), Vector3.down, .5f);
         }
 
         private void OnTriggerEnter(Collider other)
