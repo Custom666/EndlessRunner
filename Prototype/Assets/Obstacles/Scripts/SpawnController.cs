@@ -16,21 +16,14 @@ namespace Assets.Obstacles.Scripts
         public List<GameObject> Obstacles;
 
         public Transform Origin;
-        
-        // Update is called once per frame
-        private void FixedUpdate()
+
+        public void Spawn(GameObject obstacle)
         {
-            if (Math.Abs(Time.fixedTime % SpawnInterval) > 0.01f) return;
-            
-            var randomIndex = Random.Range(0, Obstacles.Count + 1);
-            
-            if(randomIndex == Obstacles.Count) return;
-            
-            var obstacle = Instantiate(Obstacles[randomIndex], transform);
+            var newObstacle = Instantiate(obstacle, transform);
 
-            obstacle.transform.localEulerAngles += Vector3.forward * Deflection;
+            newObstacle.transform.localEulerAngles += Vector3.forward * Deflection;
 
-            obstacle.transform.parent = Origin;
+            newObstacle.transform.parent = Origin;
         }
     }
 }

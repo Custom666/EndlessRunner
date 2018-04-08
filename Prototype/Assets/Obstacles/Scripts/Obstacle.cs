@@ -5,6 +5,8 @@ namespace Assets.Obstacles.Scripts
 {
     public class Obstacle : MonoBehaviour
     {
+        public bool IsTransportable = false;
+
         private void OnTriggerEnter(Collider other)
         {
             switch (other.gameObject.name)
