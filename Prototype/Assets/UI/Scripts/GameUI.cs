@@ -15,8 +15,8 @@ namespace Assets.UI.Scripts
         private Slider _enemyHealth;
 
         private GameObject _gameMenu;
-
-        private void Start()
+        
+        private void Awake()
         {
             _playerHealth = transform.GetChild(0).transform.GetChild(0).gameObject.GetComponent<Text>();
             _enemyHealth = transform.GetChild(1).transform.GetChild(0).gameObject.GetComponent<Slider>();
@@ -30,7 +30,13 @@ namespace Assets.UI.Scripts
 
         private void LateUpdate()
         {
-            if(Input.GetButtonDown("Pause")) _gameMenu.SetActive(true);
+            if (Input.GetButtonDown("Pause"))
+            {
+                // activate resume button
+                _gameMenu.transform.GetChild(1).gameObject.SetActive(true);
+
+                _gameMenu.SetActive(true);
+            }
         }
 
         private void OnEnable()
@@ -52,13 +58,15 @@ namespace Assets.UI.Scripts
             #if UNITY_EDITOR
                 return;
             #endif
-
-
+            
             if (health <= 0)
             {
                 Time.timeScale = 0f;
 
                 _gameMenu.transform.Find("GameMenuText").GetComponent<Text>().text = "GAME OVER";
+
+                // deactivate resume button
+                _gameMenu.transform.GetChild(1).gameObject.SetActive(false);
 
                 _gameMenu.SetActive(true);
             }
@@ -74,6 +82,9 @@ namespace Assets.UI.Scripts
 
                 _gameMenu.transform.Find("GameMenuText").GetComponent<Text>().text = "VICTORY";
 
+                // deactivate resume button
+                _gameMenu.transform.GetChild(1).gameObject.SetActive(false);
+                
                 _gameMenu.SetActive(true);
             }
         }

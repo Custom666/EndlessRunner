@@ -1,6 +1,7 @@
 ﻿using System;
 using Assets.Enemies.Scripts;
 using Assets.Planet.Scripts;
+using Assets.Weapon.Scripts;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Experimental.Rendering;
@@ -20,9 +21,8 @@ namespace Assets.Player.Scripts
 
         public PlanetRotation Planet;
 
-        public GameObject GameOverPanel;
-
         private Rigidbody _rigidbody;
+        private WeaponController _weaponController;
         private int _health;
 
         public int Health
@@ -40,11 +40,15 @@ namespace Assets.Player.Scripts
         {
             _rigidbody = GetComponent<Rigidbody>();
 
+            _weaponController = transform.GetChild(0).gameObject.GetComponent<WeaponController>();
+
             Health = 5;
         }
-
-        private void FixedUpdate()
+        
+        private void Update()
         {
+            if (Input.GetButtonDown("Fire")) _weaponController.Fire();
+
             if (isGrounded())
             {
                 Planet.CanRotate = true;
@@ -53,8 +57,7 @@ namespace Assets.Player.Scripts
                 if (Input.GetButtonDown("Jump"))
                 {
                     var force = Vector3.up * Jump;
-
-                    Debug.Log(force);
+                    
                     _rigidbody.AddForce(force, ForceMode.Impulse);
                 }
             }
@@ -68,8 +71,8 @@ namespace Assets.Player.Scripts
         
         private bool isGrounded()
         {
-            Debug.DrawRay(transform.position + new Vector3(0f, -transform.localScale.y / 2f, 0f), Vector3.down, Color.cyan, .5f);
-            return Physics.Raycast(transform.position + new Vector3(0f, -transform.localScale.y / 2f, 0f), Vector3.down, .5f);
+            Debug.DrawRay(transform.position, Vector3.down, Color.cyan, .1f);
+            return Physics.Raycast(transform.position, Vector3.down, .2f);
         }
 
         private void OnTriggerEnter(Collider other)

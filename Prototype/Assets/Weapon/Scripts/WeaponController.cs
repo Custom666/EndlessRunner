@@ -6,38 +6,27 @@ namespace Assets.Weapon.Scripts
     public class WeaponController : MonoBehaviour
     {
         public GameObject Projectile;
-        public Transform Parent;
-        public Transform Spawn;
 
-        public float Speed = 30f;
-        public float Time = 3f;
+        public float Speed = 15f;
+        public float Time = 5f;
 
         private int _lastFireTime;
-
-        // Update is called once per frame
-        private void Update()
+        
+        public void Fire()
         {
-            if (Input.GetButtonDown("Fire") && _lastFireTime < (int)UnityEngine.Time.fixedTime) fire();
-        }
+            if (_lastFireTime >= (int) UnityEngine.Time.fixedTime) return;
 
-        private IEnumerator destroyProjectile(GameObject projectile, float delay)
-        {
-            yield return new WaitForSeconds(delay);
+            var parent = GameObject.Find("MovablePlanet");
 
-            Destroy(projectile);
-        }
+            var projectile = Instantiate(Projectile, transform.position, Projectile.transform.rotation, parent.transform);
 
-        private void fire()
-        {
-            var projectile = Instantiate(Projectile, Spawn.position, Projectile.transform.rotation, Parent);
-
-            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), Spawn.parent.GetComponent<Collider>());
+            Physics.IgnoreCollision(projectile.GetComponent<Collider>(), transform.parent.GetComponent<Collider>());
             
-            projectile.GetComponent<Rigidbody>().AddForce(Spawn.forward * Speed, ForceMode.Impulse);
+            projectile.GetComponent<Rigidbody>().AddForce(transform.forward * Speed, ForceMode.Impulse);
 
             _lastFireTime = (int) UnityEngine.Time.fixedTime;
-
-            StartCoroutine(destroyProjectile(projectile, Time));
+            
+            Destroy(projectile, Time);
         }
     }
 }
