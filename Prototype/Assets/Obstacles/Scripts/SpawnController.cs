@@ -21,7 +21,7 @@ namespace Assets.Obstacles.Scripts
         {
             var newObstacle = Instantiate(obstacle, transform);
 
-            newObstacle.transform.localEulerAngles += Vector3.forward * Deflection;
+            newObstacle.transform.localEulerAngles += Vector3.up * Deflection;
 
             newObstacle.transform.parent = Origin;
         }

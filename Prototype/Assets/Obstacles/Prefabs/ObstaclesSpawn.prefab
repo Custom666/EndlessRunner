@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aae62497053888548bffb713c0e12cd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 50
+  SpeedManager: {fileID: 0}
 --- !u!114 &114516295042755412
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,7 +96,7 @@ MonoBehaviour:
   SpawnInterval: 5
   Deflection: 0
   Obstacles:
-  - {fileID: 1321055906619010, guid: f57606651c704024bbae72a3325f8a7b, type: 2}
-  - {fileID: 1337561173975288, guid: bff227b4282e4eb448bb85c33e2b7853, type: 2}
-  - {fileID: 1558199676054444, guid: 85ad8464324df6f43a6dbbe9cacc9ece, type: 2}
+  - {fileID: 1870183696467932, guid: 98e831a1cf2752f478024b591ab4567f, type: 2}
+  - {fileID: 1725472308596818, guid: a7c2a667cdf11b84383aff4fb4e10b16, type: 2}
+  - {fileID: 1066609332747748, guid: 769cd425c4f10db48be98598905a9fac, type: 2}
   Origin: {fileID: 4496824344304538}

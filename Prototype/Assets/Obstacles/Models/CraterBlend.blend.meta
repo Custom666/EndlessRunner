@@ -1,14 +1,13 @@
 fileFormatVersion: 2
 guid: 7907825f3cfda2e4483c4d89abe6d594
-timeCreated: 1522525929
+timeCreated: 1525786764
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     400000: //RootNode
-    2100000: None__CraterTexture_tga
-    2100002: Material__CraterTexture_tga
+    2100000: Material__CraterTexture_tga
     2300000: //RootNode
     3300000: //RootNode
     4300000: Sphere
