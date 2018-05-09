@@ -388,6 +388,8 @@ MonoBehaviour:
   - {fileID: 1066609332747748, guid: 769cd425c4f10db48be98598905a9fac, type: 2}
   - {fileID: 1017763449676134, guid: b42d0a8a06b05054a91a9b38b2273f0e, type: 2}
   - {fileID: 1487100040512802, guid: 39a3e058a65aa544ba921c729ffda171, type: 2}
+  - {fileID: 1487100040512802, guid: f425345b6cfe0f24baa8d3e21fcd3079, type: 2}
+  - {fileID: 1487100040512802, guid: fa97a26fd72974e4abdf6cad71af6f6b, type: 2}
   Origin: {fileID: 161902546}
 --- !u!4 &268144813
 Transform:
@@ -684,6 +686,8 @@ MonoBehaviour:
   - {fileID: 1725472308596818, guid: a7c2a667cdf11b84383aff4fb4e10b16, type: 2}
   - {fileID: 1017763449676134, guid: b42d0a8a06b05054a91a9b38b2273f0e, type: 2}
   - {fileID: 1487100040512802, guid: 39a3e058a65aa544ba921c729ffda171, type: 2}
+  - {fileID: 1487100040512802, guid: f425345b6cfe0f24baa8d3e21fcd3079, type: 2}
+  - {fileID: 1487100040512802, guid: fa97a26fd72974e4abdf6cad71af6f6b, type: 2}
   Origin: {fileID: 161902546}
 --- !u!4 &503126281
 Transform:
@@ -1143,9 +1147,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a52079b75d6da841bfbe49750930333, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Speed: 20
-  Interval: 10
-  SpeedIncrement: 10
+  Speed: 35
+  Interval: 8
+  SpeedIncrement: 3
+  AnimationSpeedIncrement: 0.1
+  PlayerJumpIncrement: 0.25
+  GravityIncrement: {x: 0, y: 0.5, z: 0}
+  Player: {fileID: 1299041186}
 --- !u!4 &994495562
 Transform:
   m_ObjectHideFlags: 0
@@ -1227,6 +1235,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1051906196}
+--- !u!114 &1299041186 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114405274691261912, guid: 8a3f8703ad32db64f9c8dda33b8543df,
+    type: 2}
+  m_PrefabInternal: {fileID: 1624076590}
+  m_Script: {fileID: 11500000, guid: 5d08e2f448024204ca4fde38bdad8743, type: 3}
 --- !u!1 &1338023069
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,6 +1563,8 @@ MonoBehaviour:
   - {fileID: 1066609332747748, guid: 769cd425c4f10db48be98598905a9fac, type: 2}
   - {fileID: 1017763449676134, guid: b42d0a8a06b05054a91a9b38b2273f0e, type: 2}
   - {fileID: 1487100040512802, guid: 39a3e058a65aa544ba921c729ffda171, type: 2}
+  - {fileID: 1487100040512802, guid: f425345b6cfe0f24baa8d3e21fcd3079, type: 2}
+  - {fileID: 1487100040512802, guid: fa97a26fd72974e4abdf6cad71af6f6b, type: 2}
   Origin: {fileID: 161902546}
 --- !u!4 &1609881020
 Transform:
@@ -1608,6 +1624,22 @@ Prefab:
       propertyPath: Planet
       value: 
       objectReference: {fileID: 1705541364}
+    - target: {fileID: 212112445533632062, guid: 8a3f8703ad32db64f9c8dda33b8543df,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 15db190fb479566419a46ed969b7fb56,
+        type: 3}
+    - target: {fileID: 212112445533632062, guid: 8a3f8703ad32db64f9c8dda33b8543df,
+        type: 2}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114405274691261912, guid: 8a3f8703ad32db64f9c8dda33b8543df,
+        type: 2}
+      propertyPath: Jump
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a3f8703ad32db64f9c8dda33b8543df, type: 2}
   m_IsPrefabParent: 0

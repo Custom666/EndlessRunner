@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 54223315609880200}
   - component: {fileID: 114395820193776486}
   - component: {fileID: 65609466370762958}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: LowObstacle
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 423c34b4e30e5e944927e36fcba82001, type: 2}
+  - {fileID: 2100000, guid: a15c1a81e12596f48a6cef2ebcc49a0d, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

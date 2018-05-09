@@ -16,13 +16,13 @@ namespace Assets.Player.Scripts
         public static event OnHealthChanged OnHealthChangedEvent;
 
         public float Jump = 15f;
-
-        public Vector3 AddedGravity = new Vector3(0f, -1f, 0f); 
-
+        
         public PlanetRotation Planet;
 
         private Rigidbody _rigidbody;
         private WeaponController _weaponController;
+        private Animator _animator;
+
         private int _health;
 
         public int Health
@@ -40,6 +40,8 @@ namespace Assets.Player.Scripts
         {
             _rigidbody = GetComponent<Rigidbody>();
 
+            _animator = GetComponent<Animator>();
+
             _weaponController = transform.GetChild(0).gameObject.GetComponent<WeaponController>();
 
             Health = 5;
@@ -52,26 +54,26 @@ namespace Assets.Player.Scripts
             if (isGrounded())
             {
                 Planet.CanRotate = true;
-                Physics.gravity = Vector3.down * 9.81f;
 
                 if (Input.GetButtonDown("Jump"))
                 {
                     var force = Vector3.up * Jump;
                     
                     _rigidbody.AddForce(force, ForceMode.Impulse);
+
+                    _animator.SetBool("Jump", true);
                 }
+                else _animator.SetBool("Jump", false);
+                    
             }
             else
             {
                 Planet.CanRotate = false;
-
-                Physics.gravity += AddedGravity;
             }
         }
         
         private bool isGrounded()
         {
-            Debug.DrawRay(transform.position, Vector3.down, Color.cyan, .1f);
             return Physics.Raycast(transform.position, Vector3.down, .2f);
         }
 
