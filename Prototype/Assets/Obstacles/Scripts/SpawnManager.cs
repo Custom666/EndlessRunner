@@ -6,11 +6,15 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Obstacles.Scripts
 {
-    [Serializable]
+    /// <summary>
+    /// Manager that use spawn controller to spawn randomly obstacles from collection. 
+    /// It guaranted that one of them will always be transportable.
+    /// </summary>
     public class SpawnManager : MonoBehaviour
     {
-        [SerializeField] public List<SpawnController> Controllers;
-        
+        [SerializeField]
+        private List<SpawnController> Controllers;
+
         // Update is called once per frame
         private void FixedUpdate()
         {
@@ -29,13 +33,13 @@ namespace Assets.Obstacles.Scripts
 
                 transportableObstacles.AddRange(controller.Obstacles.FindAll(o => o.GetComponent<Obstacle>().IsTransportable));
             }
-            
+
             if (!obstacles.Any(o => o.GetComponent<Obstacle>().IsTransportable))
             {
                 obstacles[Random.Range(0, obstacles.Count)] = transportableObstacles[Random.Range(0, transportableObstacles.Count)];
             }
 
-            for (var i = 0; i < Controllers.Count; i++) Controllers[i].Spawn(obstacles[i]); 
+            for (var i = 0; i < Controllers.Count; i++) Controllers[i].Spawn(obstacles[i]);
         }
     }
 }

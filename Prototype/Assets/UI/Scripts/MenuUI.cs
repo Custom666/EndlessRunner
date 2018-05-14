@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 namespace Assets.UI.Scripts
 {
+    /// <summary>
+    /// User interface in passive game
+    /// </summary>
     public class MenuUI : MonoBehaviour
     {
         private void LateUpdate()

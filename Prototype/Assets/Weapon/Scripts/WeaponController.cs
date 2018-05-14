@@ -3,12 +3,19 @@ using UnityEngine;
 
 namespace Assets.Weapon.Scripts
 {
+    /// <summary>
+    /// Controller that describe weapon mechanics
+    /// </summary>
     public class WeaponController : MonoBehaviour
     {
-        public GameObject Projectile;
+        [SerializeField]
+        private GameObject Projectile;
 
-        public float Speed = 15f;
-        public float Time = 5f;
+        [SerializeField]
+        private float Speed = 15f;
+
+        [SerializeField]
+        private float Time = 5f;
 
         private int _lastFireTime;
         

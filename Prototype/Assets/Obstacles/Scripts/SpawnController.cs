@@ -5,17 +5,20 @@ using Random = UnityEngine.Random;
 
 namespace Assets.Obstacles.Scripts
 {
-    [Serializable]
+    /// <summary>
+    /// Controller that handle obstacles collection and spawn one specific under given origin. 
+    /// </summary>
     public class SpawnController : MonoBehaviour
     {
         public float SpawnInterval = 3f;
 
-        public float Deflection = 0f;
-
-        [SerializeField]
         public List<GameObject> Obstacles;
 
-        public Transform Origin;
+        [SerializeField]
+        private float Deflection = 0f;
+        
+        [SerializeField]
+        private Transform Origin;
 
         public void Spawn(GameObject obstacle)
         {

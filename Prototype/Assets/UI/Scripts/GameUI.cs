@@ -8,6 +8,9 @@ using UnityEngine.UI;
 
 namespace Assets.UI.Scripts
 {
+    /// <summary>
+    /// User interface in active game
+    /// </summary>
     public class GameUI : MonoBehaviour
     {
         private Text _playerHealth;

@@ -4,17 +4,28 @@ using UnityEngine;
 
 namespace Assets.Planet.Scripts
 {
+    /// <summary>
+    /// Manager that handle world speed rotation (texture, jump, gravity, animation ...)
+    /// </summary>
+    [RequireComponent(typeof(Animator))]
     public class RotationSpeedManager : MonoBehaviour
     {
         public float Speed = 35f;
-        public float Interval = 8f;
-        public float SpeedIncrement = 4f;
-        public float AnimationSpeedIncrement = 0.1f;
-        public float PlayerJumpIncrement = 3f;
 
-        public Vector3 GravityIncrement = new Vector3(0f, .35f, 0f);
+        [SerializeField]
+        private float Interval = 8f;
+        [SerializeField]
+        private float SpeedIncrement = 4f;
+        [SerializeField]
+        private float AnimationSpeedIncrement = 0.1f;
+        [SerializeField]
+        private float PlayerJumpIncrement = 3f;
 
-        public PlayerController Player;
+        [SerializeField]
+        private Vector3 GravityIncrement = new Vector3(0f, .35f, 0f);
+
+        [SerializeField]
+        private PlayerController Player;
 
         private Animator _playerAnimator;
 

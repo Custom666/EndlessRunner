@@ -2,10 +2,15 @@
 
 namespace Assets.Planet.Scripts
 {
+    /// <summary>
+    /// Changing main material offset of <see cref="Renderer"/> by <see cref="SpeedManager"/> speed
+    /// </summary>
+    [RequireComponent(typeof(Renderer))]
     public class MaterialTranslation : MonoBehaviour
     {
-        public RotationSpeedManager SpeedManager;
-
+        [SerializeField]
+        private RotationSpeedManager SpeedManager;
+        
         private Renderer _renderer;
 
         // Use this for initialization

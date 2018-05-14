@@ -9,15 +9,22 @@ using UnityEngine.UI;
 
 namespace Assets.Player.Scripts
 {
+    /// <summary>
+    /// Controller responsible for player mechanics.
+    /// </summary>
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(WeaponController))]
+    [RequireComponent(typeof(Animator))]
     public class PlayerController : MonoBehaviour
     {
         public delegate void OnHealthChanged(int health);
 
         public static event OnHealthChanged OnHealthChangedEvent;
-
-        public float Jump = 15f;
         
-        public PlanetRotation Planet;
+        public float Jump = 15f;
+
+        [SerializeField]
+        private PlanetRotation Planet;
 
         private Rigidbody _rigidbody;
         private WeaponController _weaponController;
@@ -61,6 +68,7 @@ namespace Assets.Player.Scripts
                     
                     _rigidbody.AddForce(force, ForceMode.Impulse);
 
+                    // TODO change bool to float
                     _animator.SetBool("Jump", true);
                 }
                 else _animator.SetBool("Jump", false);

@@ -4,25 +4,63 @@ using NUnit.Framework;
 using System.Collections;
 using Assets.Player.Scripts;
 
-public class PlayerTest {
+public class PlayerTest
+{
+    private PlayerController _player;
+    private GameObject _object;
 
-    private GameObject _terrain;
-    private GameObject _player;
+    [OneTimeSetUp]
+    public void FixSetup()
+    {
+        Object.Instantiate(Resources.Load<GameObject>("Land"));
+    }
 
     [SetUp]
     public void Setup()
     {
-        _terrain = Object.Instantiate(Resources.Load<GameObject>("Land"));
-        _player = Object.Instantiate(Resources.Load<GameObject>("Player"));
+        _player = Object.Instantiate(Resources.Load<GameObject>("Player")).GetComponent<PlayerController>();
     }
 
+    [TearDown]
+    public void Clear()
+    {
+        Object.Destroy(_player.gameObject);
+        Object.Destroy(_object);
+    }
+    
     [UnityTest]
     public IEnumerator CollisonWithCraterTest()
     {
-        var crater = Object.Instantiate(Resources.Load<GameObject>("Crater"));
+        _object = Object.Instantiate(Resources.Load<GameObject>("Crater"));
 
-        yield return new WaitUntil(() => Physics.CheckBox(_player.transform.position, crater.transform.position));
+        yield return new WaitUntil(() => Physics.CheckBox(_player.transform.position, _object.transform.position));
 
-        Assert.True(_player.GetComponent<PlayerController>().Health == 0);
+        yield return new WaitForSeconds(.1f);
+
+        Assert.AreEqual(0, _player.Health, "Player healt should be zero => player should be death");
+    }
+
+    [UnityTest]
+    public IEnumerator CollisonWithEnemyTest()
+    {
+        _object = Object.Instantiate(Resources.Load<GameObject>("Enemy"));
+
+        var healtBefore = _player.Health;
+
+        yield return new WaitUntil(() => Physics.CheckBox(_player.transform.position, _object.transform.position));
+
+        Assert.AreEqual(_player.Health, healtBefore - 1, "Player healt should be decrement!");
+    }
+
+    [UnityTest]
+    public IEnumerator CollisonWithObstacleTest()
+    {
+        _object = Object.Instantiate(Resources.Load<GameObject>("Obstacle"));
+
+        var healtBefore = _player.Health;
+
+        yield return new WaitUntil(() => Physics.CheckBox(_player.transform.position, _object.transform.position));
+
+        Assert.AreEqual(_player.Health, healtBefore - 1, "Player healt should be decrement!");
     }
 }

@@ -1,8 +1,12 @@
 ﻿using Assets.Player.Scripts;
+using Assets.Weapon.Scripts;
 using UnityEngine;
 
 namespace Assets.Projectiles.Scripts
 {
+    /// <summary>
+    /// Controller that encapsulate logic for <see cref="WeaponController"/> bullet
+    /// </summary>
     public class ProjectileController : MonoBehaviour
     {
         public delegate void OnEnemyHit();

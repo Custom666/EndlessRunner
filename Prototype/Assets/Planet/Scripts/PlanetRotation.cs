@@ -3,13 +3,19 @@ using UnityEngine;
 
 namespace Assets.Planet.Scripts
 {
+    /// <summary>
+    /// Left-right world rotation by deflection
+    /// </summary>
     public class PlanetRotation : MonoBehaviour
     {
-        public float Deflection = 15;
-        public float Speed = 5;
-
         public bool CanRotate = true;
 
+        [SerializeField]
+        private float Deflection = 15;
+
+        [SerializeField]
+        private float Speed = 5;
+        
         private float _horizontalMove;
 
         private void Update()
