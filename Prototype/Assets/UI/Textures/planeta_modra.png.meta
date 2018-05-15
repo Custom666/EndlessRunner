@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 201ccdb00dfa27c4890a866278537cbe
-timeCreated: 1525901588
+guid: c8b10e27e972444409e9a44312d03469
+timeCreated: 1526408881
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName: {}
@@ -41,7 +41,7 @@ TextureImporter:
   lightmap: 0
   compressionQuality: 50
   spriteMode: 1
-  spriteExtrude: 0
+  spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -49,7 +49,7 @@ TextureImporter:
   spritePixelsToUnits: 100
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 0
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   maxTextureSizeSet: 0
@@ -79,49 +79,8 @@ TextureImporter:
   spriteSheet:
     serializedVersion: 2
     sprites: []
-    outline:
-    - - {x: 45.5, y: -121.5}
-      - {x: 61.5, y: -113.5}
-      - {x: 74.5, y: -104.5}
-      - {x: 89.5, y: -93.5}
-      - {x: 104.5, y: -74.5}
-      - {x: 120.5, y: -47.5}
-      - {x: 130.78043, y: -17.068329}
-      - {x: 128.24802, y: 19.169037}
-      - {x: 119.348755, y: 49.53595}
-      - {x: 97.44946, y: 86.204956}
-      - {x: 72.5, y: 108.5}
-      - {x: 45.5, y: 123.5}
-      - {x: 17.5, y: 129.5}
-      - {x: -14.5, y: 130.5}
-      - {x: -47.5, y: 122.5}
-      - {x: -76.5, y: 106.5}
-      - {x: -97.5, y: 84.5}
-      - {x: -112.5, y: 64.5}
-      - {x: -122.5, y: 40.5}
-      - {x: -129.5, y: 13.5}
-      - {x: -126.5, y: -10.5}
-      - {x: -123.5, y: -41.5}
-      - {x: -110.5, y: -65.5}
-      - {x: -97.5, y: -83.5}
-      - {x: -78.5, y: -101.5}
-      - {x: -53.5, y: -117.5}
-      - {x: -32.5, y: -125.5}
-      - {x: -11.5, y: -129.5}
-      - {x: 19.5, y: -127.5}
-    physicsShape:
-    - - {x: -77.36334, y: 105.54306}
-      - {x: -128.96762, y: 36.945908}
-      - {x: -128.33452, y: -29.909973}
-      - {x: -109.305695, y: -70.06833}
-      - {x: -79.16904, y: -103.068306}
-      - {x: -36.204987, y: -125.80213}
-      - {x: 35.23381, y: -127.06833}
-      - {x: 100.197876, y: -83.24805}
-      - {x: 129.5, y: -28.5}
-      - {x: 121.63666, y: 50.94664}
-      - {x: 77.31993, y: 107.82385}
-      - {x: 2.9384308, y: 134.03238}
+    outline: []
+    physicsShape: []
   spritePackingTag: 
   userData: 
   assetBundleName: 

@@ -5,6 +5,7 @@ using Assets.Projectiles.Scripts;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.Video;
 
 namespace Assets.UI.Scripts
 {
@@ -23,16 +24,23 @@ namespace Assets.UI.Scripts
             Application.Quit();    
         }
 
-        public void Restart()
+        public void LoadIntro()
         {
-            SceneManager.LoadSceneAsync(1, LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync("Storyboard");
+        }
 
+        public void LoadLevel(string level)
+        {
+            if (!Application.CanStreamedLevelBeLoaded(level)) return;
+
+            SceneManager.LoadSceneAsync(level);
+            
             Time.timeScale = 1f;
         }
 
         public void MainMenu()
         {
-            SceneManager.LoadSceneAsync(0, LoadSceneMode.Single);
+            SceneManager.LoadSceneAsync(0);
         }
 
         public void Pause(GameObject menu)
