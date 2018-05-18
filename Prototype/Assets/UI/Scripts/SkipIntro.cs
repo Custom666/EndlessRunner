@@ -39,8 +39,15 @@ public class SkipIntro : MonoBehaviour
 
         if (!_menu.IsLevelLoaded(LevelToLoad)) return;
 
-        SkipText.gameObject.SetActive(true);
-        
-        if(Input.GetKeyDown(KeyCode.Space)) _menu.PlayLevel(LevelToLoad);
+        if (!SkipText.IsActive())
+            SkipText.gameObject.SetActive(true);
+        else
+            SkipText.color = new Color(
+                SkipText.color.r,
+                SkipText.color.g,
+                SkipText.color.b,
+                Mathf.Lerp(SkipText.color.a, 255, Time.deltaTime / 5000));
+
+        if (Input.GetKeyDown(KeyCode.Space)) _menu.PlayLevel(LevelToLoad);
     }
 }
