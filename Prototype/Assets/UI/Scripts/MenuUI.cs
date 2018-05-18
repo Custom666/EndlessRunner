@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 using Assets.Enemies.Scripts;
 using Assets.Player.Scripts;
 using Assets.Projectiles.Scripts;
@@ -14,6 +16,8 @@ namespace Assets.UI.Scripts
     /// </summary>
     public class MenuUI : MonoBehaviour
     {
+        private readonly IDictionary<string, AsyncOperation> _loadedLevels = new Dictionary<string, AsyncOperation>();
+        
         private void LateUpdate()
         {
             if (Input.GetButtonDown("Pause")) Pause(gameObject);
@@ -23,24 +27,30 @@ namespace Assets.UI.Scripts
         {
             Application.Quit();    
         }
-
-        public void LoadIntro()
+        
+        public void LoadLevel(string name)
         {
-            SceneManager.LoadSceneAsync("Storyboard");
+            if (!Application.CanStreamedLevelBeLoaded(name))
+                throw new FileNotFoundException(string.Format("Scene with name {0} do not exist"), name);
+
+            var level = SceneManager.LoadSceneAsync(name);
+
+            level.allowSceneActivation = false;
+
+            _loadedLevels.Add(name, level);
         }
 
-        public void LoadLevel(string level)
+        public void PlayLevel(string name)
         {
-            if (!Application.CanStreamedLevelBeLoaded(level)) return;
+            AsyncOperation level;
 
-            SceneManager.LoadSceneAsync(level);
-            
-            Time.timeScale = 1f;
-        }
+            if (!_loadedLevels.TryGetValue(name, out level))
+            {
+                LoadLevel(name);
 
-        public void MainMenu()
-        {
-            SceneManager.LoadSceneAsync(0);
+                PlayLevel(name);
+            }
+            else level.allowSceneActivation = true;
         }
 
         public void Pause(GameObject menu)
@@ -55,6 +65,13 @@ namespace Assets.UI.Scripts
             menu.SetActive(false);
 
             Time.timeScale = 1f;
+        }
+
+        public bool IsLevelLoaded(string name)
+        {
+            AsyncOperation level;
+
+            return _loadedLevels.TryGetValue(name, out level) && level.progress.CompareTo(0.9f) == 0;
         }
     }
 }

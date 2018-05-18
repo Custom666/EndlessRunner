@@ -296,6 +296,7 @@
     <Compile Include="Assets\Tests\ProjectileTest.cs" />
     <Compile Include="Assets\UI\Scripts\GameUI.cs" />
     <Compile Include="Assets\UI\Scripts\MenuUI.cs" />
+    <Compile Include="Assets\UI\Scripts\SkipIntro.cs" />
     <Compile Include="Assets\Weapon\Scripts\WeaponController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
