@@ -24,17 +24,6 @@ namespace Assets.Projectiles.Scripts
                     Destroy(collider.gameObject);
 
                     break;
-
-                case "Player":
-
-                    var player = GameObject.Find("Player");
-
-                    if(player == null) break;
-
-                    player.GetComponent<PlayerController>().Health--;
-                    
-                    break;
-
             }
 
             Destroy(gameObject);

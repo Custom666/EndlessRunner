@@ -8,46 +8,39 @@ using UnityEngine.Video;
 [RequireComponent(typeof(MenuUI))]
 public class SkipIntro : MonoBehaviour
 {
+    [SerializeField] private string _levelToLoad;
+    [SerializeField] private VideoPlayer _videoPlayer;
+
     private MenuUI _menu;
-
-    [SerializeField]
-    private string LevelToLoad;
-
-    [SerializeField]
-    private Text SkipText;
-
-    [SerializeField]
-    private VideoPlayer VideoPlayer;
+    private Text _skipText;
 
     private void Start()
     {
         _menu = GetComponent<MenuUI>();
 
-        _menu.LoadLevel(LevelToLoad);
+        _skipText = GetComponentInChildren<Text>();
 
-        VideoPlayer.Play();
+        _videoPlayer.Play();
     }
 
     private void LateUpdate()
     {
-        if (!VideoPlayer.isPlaying)
+        if (!_videoPlayer.isPlaying)
         {
-            _menu.PlayLevel(LevelToLoad);
+            _menu.PlayLevel(_levelToLoad);
 
             return;
         }
 
-        if (!_menu.IsLevelLoaded(LevelToLoad)) return;
-
-        if (!SkipText.IsActive())
-            SkipText.gameObject.SetActive(true);
+        if (!_skipText.IsActive())
+            _skipText.gameObject.SetActive(true);
         else
-            SkipText.color = new Color(
-                SkipText.color.r,
-                SkipText.color.g,
-                SkipText.color.b,
-                Mathf.Lerp(SkipText.color.a, 255, Time.deltaTime / 5000));
+            _skipText.color = new Color(
+                _skipText.color.r,
+                _skipText.color.g,
+                _skipText.color.b,
+                Mathf.Lerp(_skipText.color.a, 255, Time.deltaTime / 5000));
 
-        if (Input.GetKeyDown(KeyCode.Space)) _menu.PlayLevel(LevelToLoad);
+        if (Input.GetKeyDown(KeyCode.Space)) _menu.PlayLevel(_levelToLoad);
     }
 }

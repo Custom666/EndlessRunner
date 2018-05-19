@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Assets.Enemies.Scripts;
 using Assets.Player.Scripts;
 using Assets.Projectiles.Scripts;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -16,11 +19,25 @@ namespace Assets.UI.Scripts
     /// </summary>
     public class MenuUI : MonoBehaviour
     {
-        private readonly IDictionary<string, AsyncOperation> _loadedLevels = new Dictionary<string, AsyncOperation>();
+        [CanBeNull] [SerializeField] private GameObject _gameMenu;
+
+        private Text _gameMenuText;
+        private Button _gameMenuResumeButton;
         
-        private void LateUpdate()
+        private void Awake()
         {
-            if (Input.GetButtonDown("Pause")) Pause(gameObject);
+            if (_gameMenu == null) return;
+
+            _gameMenuText = _gameMenu.GetComponentsInChildren<Text>()
+                .FirstOrDefault(child => string.Compare(child.name, "GameMenuText", StringComparison.Ordinal) == 0);
+
+            _gameMenuResumeButton = _gameMenu.GetComponentsInChildren<Button>()
+                .FirstOrDefault(child => string.Compare(child.name, "ResumeButton", StringComparison.Ordinal) == 0);
+        }
+
+        private void FixedUpdate()
+        {
+            if (!GameState.IsGameOver && Input.GetButtonDown("Pause")) Pause();
         }
 
         public void Quit()
@@ -28,50 +45,53 @@ namespace Assets.UI.Scripts
             Application.Quit();    
         }
         
-        public void LoadLevel(string name)
+        public void PlayLevel(string name)
         {
             if (!Application.CanStreamedLevelBeLoaded(name))
                 throw new FileNotFoundException(string.Format("Scene with name {0} do not exist"), name);
 
-            var level = SceneManager.LoadSceneAsync(name);
+            GameState.IsGameOver = false;
 
-            level.allowSceneActivation = false;
+            Time.timeScale = 1f;
 
-            _loadedLevels.Add(name, level);
+            SceneManager.LoadScene(name);
         }
 
-        public void PlayLevel(string name)
+        public void Pause()
         {
-            AsyncOperation level;
-
-            if (!_loadedLevels.TryGetValue(name, out level))
-            {
-                LoadLevel(name);
-
-                PlayLevel(name);
-            }
-            else level.allowSceneActivation = true;
-        }
-
-        public void Pause(GameObject menu)
-        {
-            menu.SetActive(true);
+            _gameMenu.SetActive(true);
 
             Time.timeScale = 0f;
         }
 
-        public void Resume(GameObject menu)
+        public void Resume()
         {
-            menu.SetActive(false);
+            _gameMenu.SetActive(false);
 
             Time.timeScale = 1f;
         }
 
-        public bool IsLevelLoaded(string name)
+        public void Restart()
         {
-            AsyncOperation level;
+            PlayLevel(SceneManager.GetActiveScene().name);
+        }
+        
+        public void GameOver()
+        {
+            if (GameState.IsGameOver) return;
 
-            return _loadedLevels.TryGetValue(name, out level) && level.progress.CompareTo(0.9f) == 0;
+            GameState.IsGameOver = true;
+            
+            if (_gameMenu != null)
+            {
+                _gameMenuText.text = "GAME OVER";
+
+                _gameMenuResumeButton.interactable = false;
+
+                _gameMenu.SetActive(true);
+            }
+            
+            Time.timeScale = 0f;
         }
     }
 }

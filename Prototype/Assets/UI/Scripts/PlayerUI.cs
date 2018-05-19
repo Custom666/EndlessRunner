@@ -1,34 +1,100 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Player.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
+using Assets.UI.Scripts;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField]
-    private Slider Oxygen;
-    
-    private void Update()
-    {
-        Oxygen.value -= Time.deltaTime;
-    }
+    [SerializeField] private Slider _oxygen;
 
+    [SerializeField] private PlayerController _player;
+
+    [SerializeField] private float _blowingOxygenDuration = 1f;
+
+    private MenuUI _menu;
+
+    private Gradient _oxygenColor;
+
+    private Image _oxygenImage;
+
+    private Image _blowingOxygenImage;
+
+    private void Awake()
+    {
+        _oxygenColor = new Gradient
+        {
+            colorKeys = new[]
+            {
+                new GradientColorKey(Color.blue, 1f),
+                new GradientColorKey(Color.red, .3f),
+            },
+
+            alphaKeys = new[]
+            {
+                new GradientAlphaKey(.5f, 0f),
+                new GradientAlphaKey(1f, 1f),
+            },
+
+            mode = GradientMode.Blend
+        };
+
+        _menu = GetComponentInParent<MenuUI>();
+
+        _oxygen.maxValue = _player.MaxHealth;
+        
+        var images = _oxygen.GetComponentsInChildren<Image>();
+
+        _oxygenImage = images.First(child => string.Compare(child.name, "Oxygen", StringComparison.Ordinal) == 0);
+
+        _blowingOxygenImage = images.First(child => string.Compare(child.name, "BlowingOxygen", StringComparison.Ordinal) == 0);
+
+        _blowingOxygenImage.gameObject.SetActive(false);
+    }
+    
     private void OnEnable()
     {
         PlayerController.OnHealthChangedEvent += PlayerOnHealthChangedEvent;
+        PlayerController.OnReceiveDamageEvent += PlayerOnReceiveDamageEvent;
     }
 
     private void OnDisable()
     {
         PlayerController.OnHealthChangedEvent -= PlayerOnHealthChangedEvent;
+        PlayerController.OnReceiveDamageEvent -= PlayerOnReceiveDamageEvent;
     }
 
-    private void PlayerOnHealthChangedEvent(int health)
+    private void PlayerOnHealthChangedEvent(float health)
     {
-
+        if (health.CompareTo(0f) <= 0)
+        {
+            _menu.GameOver();
 #if UNITY_EDITOR
-        return;
+            return;
 #endif
+        }
+        else
+        {
+            _oxygen.value = health;
+
+            _oxygenImage.color = _oxygenColor.Evaluate(_oxygen.value / _oxygen.maxValue);
+        }
+    }
+    
+    private void PlayerOnReceiveDamageEvent()
+    {
+        StartCoroutine(showBlowingOxygen(_blowingOxygenImage));
+    }
+
+    private IEnumerator showBlowingOxygen(Image oxygen)
+    {
+        oxygen.gameObject.SetActive(true);
+
+        yield return new WaitForSeconds(_blowingOxygenDuration);
+
+        oxygen.gameObject.SetActive(false);
     }
 }
