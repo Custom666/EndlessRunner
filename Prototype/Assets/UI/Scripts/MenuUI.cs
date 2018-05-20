@@ -20,24 +20,24 @@ namespace Assets.UI.Scripts
     public class MenuUI : MonoBehaviour
     {
         [CanBeNull] [SerializeField] private GameObject _gameMenu;
-
-        private Text _gameMenuText;
+        
         private Button _gameMenuResumeButton;
         
         private void Awake()
         {
             if (_gameMenu == null) return;
-
-            _gameMenuText = _gameMenu.GetComponentsInChildren<Text>()
-                .FirstOrDefault(child => string.Compare(child.name, "GameMenuText", StringComparison.Ordinal) == 0);
-
+            
             _gameMenuResumeButton = _gameMenu.GetComponentsInChildren<Button>()
                 .FirstOrDefault(child => string.Compare(child.name, "ResumeButton", StringComparison.Ordinal) == 0);
         }
 
-        private void FixedUpdate()
+        private void Update()
         {
-            if (!GameState.IsGameOver && Input.GetButtonDown("Pause")) Pause();
+            if (Input.GetButtonDown("Pause") && !GameState.IsGameOver)
+            {
+                if (!GameState.IsPause) Pause();
+                else Resume();
+            }
         }
 
         public void Quit()
@@ -51,6 +51,7 @@ namespace Assets.UI.Scripts
                 throw new FileNotFoundException(string.Format("Scene with name {0} do not exist"), name);
 
             GameState.IsGameOver = false;
+            GameState.IsPause = false;
 
             Time.timeScale = 1f;
 
@@ -59,6 +60,8 @@ namespace Assets.UI.Scripts
 
         public void Pause()
         {
+            GameState.IsPause = true;
+
             _gameMenu.SetActive(true);
 
             Time.timeScale = 0f;
@@ -66,6 +69,8 @@ namespace Assets.UI.Scripts
 
         public void Resume()
         {
+            GameState.IsPause = false;
+
             _gameMenu.SetActive(false);
 
             Time.timeScale = 1f;
@@ -84,14 +89,22 @@ namespace Assets.UI.Scripts
             
             if (_gameMenu != null)
             {
-                _gameMenuText.text = "GAME OVER";
-
-                _gameMenuResumeButton.interactable = false;
+                _gameMenuResumeButton.gameObject.SetActive(false);
 
                 _gameMenu.SetActive(true);
             }
             
             Time.timeScale = 0f;
+        }
+
+        public void ToggleSound(AudioSource sound)
+        {
+            
+        }
+
+        public void ToggleMusic(AudioSource music)
+        {
+
         }
     }
 }

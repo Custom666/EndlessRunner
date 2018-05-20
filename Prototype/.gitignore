@@ -1,4 +1,8 @@
-Library/
-ProjectSettings/
-Temp/
-UnityPackageManager/
+*
+!Assets/
+!ProjectSettings/
+!Release/
+!Prototype.csproj
+!Prototype.csproj.DotSettings
+!Prototype.Editor.csproj
+!Prototype.sln
