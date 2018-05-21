@@ -1284,12 +1284,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 35
-  Interval: 8
-  SpeedIncrement: 3
-  AnimationSpeedIncrement: 0.1
-  PlayerJumpIncrement: 0.25
-  GravityIncrement: {x: 0, y: 0.5, z: 0}
-  Player: {fileID: 1299041186}
+  _maxSpeed: 75
+  _interval: 7
+  _speedIncrement: 5
+  _animationSpeedIncrement: 0.1
+  _playerJumpIncrement: 3
+  _player: {fileID: 1299041186}
 --- !u!4 &994495562
 Transform:
   m_ObjectHideFlags: 0
@@ -1996,7 +1996,7 @@ Prefab:
     - target: {fileID: 114405274691261912, guid: 8a3f8703ad32db64f9c8dda33b8543df,
         type: 2}
       propertyPath: Jump
-      value: 10
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 114405274691261912, guid: 8a3f8703ad32db64f9c8dda33b8543df,
         type: 2}
@@ -2022,6 +2022,21 @@ Prefab:
         type: 2}
       propertyPath: _obstacleDamage
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 54048444683323278, guid: 8a3f8703ad32db64f9c8dda33b8543df,
+        type: 2}
+      propertyPath: m_CollisionDetection
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114405274691261912, guid: 8a3f8703ad32db64f9c8dda33b8543df,
+        type: 2}
+      propertyPath: FallSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114405274691261912, guid: 8a3f8703ad32db64f9c8dda33b8543df,
+        type: 2}
+      propertyPath: JumpSpeed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8a3f8703ad32db64f9c8dda33b8543df, type: 2}

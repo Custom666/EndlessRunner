@@ -22,6 +22,16 @@ namespace Assets.UI.Scripts
         [CanBeNull] [SerializeField] private GameObject _gameMenu;
         
         private Button _gameMenuResumeButton;
+
+        private void OnEnable()
+        {
+            SceneManager.sceneLoaded += SceneManagerOnSceneLoaded;
+        }
+
+        private void OnDisable()
+        {
+            SceneManager.sceneLoaded -= SceneManagerOnSceneLoaded;
+        }
         
         private void Awake()
         {
@@ -49,10 +59,7 @@ namespace Assets.UI.Scripts
         {
             if (!Application.CanStreamedLevelBeLoaded(name))
                 throw new FileNotFoundException(string.Format("Scene with name {0} do not exist"), name);
-
-            GameState.IsGameOver = false;
-            GameState.IsPause = false;
-
+            
             Time.timeScale = 1f;
 
             SceneManager.LoadScene(name);
@@ -83,6 +90,9 @@ namespace Assets.UI.Scripts
         
         public void GameOver()
         {
+#if UNITY_EDITOR
+            return;
+#endif
             if (GameState.IsGameOver) return;
 
             GameState.IsGameOver = true;
@@ -105,6 +115,12 @@ namespace Assets.UI.Scripts
         public void ToggleMusic(AudioSource music)
         {
 
+        }
+        
+        private void SceneManagerOnSceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)
+        {
+            GameState.IsGameOver = false;
+            GameState.IsPause = false;
         }
     }
 }

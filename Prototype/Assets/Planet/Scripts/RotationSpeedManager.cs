@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Assets.Player.Scripts;
 using UnityEngine;
 
@@ -7,48 +8,49 @@ namespace Assets.Planet.Scripts
     /// <summary>
     /// Manager that handle world speed rotation (texture, jump, gravity, animation ...)
     /// </summary>
-    [RequireComponent(typeof(Animator))]
     public class RotationSpeedManager : MonoBehaviour
     {
         public float Speed = 35f;
 
-        [SerializeField]
-        private float Interval = 8f;
-        [SerializeField]
-        private float SpeedIncrement = 4f;
-        [SerializeField]
-        private float AnimationSpeedIncrement = 0.1f;
-        [SerializeField]
-        private float PlayerJumpIncrement = 3f;
-
-        [SerializeField]
-        private Vector3 GravityIncrement = new Vector3(0f, .35f, 0f);
-
-        [SerializeField]
-        private PlayerController Player;
+        [SerializeField] private float _maxSpeed = 75f;
+        [SerializeField] private float _interval = 7f;
+        [SerializeField] private float _speedIncrement = 5f;
+        [SerializeField] private float _animationSpeedIncrement = 0.1f;
+        [SerializeField] private float _playerJumpIncrement = 3f;
+        [SerializeField] private PlayerController _player;
 
         private Animator _playerAnimator;
+        private float _playerJumpSpeedIncrement;
+        private float _playerFallSpeedIncrement;
+
+        private void Awake()
+        {
+            _playerAnimator = _player.GetComponent<Animator>();
+
+            var difference = (_player.Jump + _playerJumpIncrement) / _player.Jump;
+
+            _playerJumpSpeedIncrement = difference * _player.JumpSpeed - _player.JumpSpeed;
+            _playerFallSpeedIncrement = difference * _player.FallSpeed - _player.FallSpeed;
+        }
 
         private void Start()
         {
-            _playerAnimator = Player.GetComponent<Animator>();
-
             StartCoroutine(increaseSpeedCoroutine());
         }
 
         private IEnumerator increaseSpeedCoroutine()
         {
-            while (true)
+            while (Speed < _maxSpeed)
             {
-                yield return new WaitForSeconds(Interval);
+                Speed += _speedIncrement;
 
-                Speed += SpeedIncrement;
+                _playerAnimator.speed += _animationSpeedIncrement;
+                
+                _player.Jump += _playerJumpIncrement;
+                _player.JumpSpeed += (_playerJumpSpeedIncrement + 1f);
+                _player.FallSpeed += (_playerFallSpeedIncrement + 1f);
 
-                _playerAnimator.speed += AnimationSpeedIncrement;
-
-                Physics.gravity -= GravityIncrement;
-
-                Player.Jump += PlayerJumpIncrement;
+                yield return new WaitForSeconds(_interval);
             }
         }
     }

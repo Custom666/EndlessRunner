@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Timers;
 using Assets.Enemies.Scripts;
 using Assets.Planet.Scripts;
 using Assets.Weapon.Scripts;
@@ -24,14 +25,13 @@ namespace Assets.Player.Scripts
         private Animator _animator;
 
         [SerializeField] private PlanetRotation _planet;
-
         [SerializeField] private float _enemyDamage = 15f;
-
         [SerializeField] private float _obstacleDamage = 10f;
-
         [SerializeField] private float _maxHealth = 80f;
 
-        public float Jump = 10f;
+        public float Jump = 30f;
+        public float JumpSpeed = 5f;
+        public float FallSpeed = 4f;
 
         public float MaxHealth { get { return _maxHealth; } }
 
@@ -47,27 +47,31 @@ namespace Assets.Player.Scripts
         }
 
         public delegate void OnHealthChanged(float health);
-
         public delegate void OnReceiveDamage();
 
         public static event OnHealthChanged OnHealthChangedEvent;
-
         public static event OnReceiveDamage OnReceiveDamageEvent;
         
-        // Use this for initialization
-        private void Start()
+        private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
 
             _animator = GetComponent<Animator>();
 
             _weaponController = transform.GetChild(0).gameObject.GetComponent<WeaponController>();
+        }
 
+        public void Start()
+        {
             Health = _maxHealth;
         }
 
         private void Update()
         {
+            if (GameState.IsGameOver) return;
+
+            Health -= Time.deltaTime;
+
             if (Input.GetButtonDown("Fire")) _weaponController.Fire();
 
             if (isGrounded())
@@ -76,9 +80,7 @@ namespace Assets.Player.Scripts
 
                 if (Input.GetButtonDown("Jump"))
                 {
-                    var force = Vector3.up * Jump;
-
-                    _rigidbody.AddForce(force, ForceMode.Impulse);
+                    _rigidbody.velocity = Vector3.up * Jump;
 
                     // TODO change bool to float
                     _animator.SetBool("Jump", true);
@@ -94,9 +96,10 @@ namespace Assets.Player.Scripts
 
         private void FixedUpdate()
         {
-            if (GameState.IsGameOver) return;
-
-            Health -= Time.deltaTime;
+            if (_rigidbody.velocity.y < 0)
+                _rigidbody.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime * FallSpeed;
+            else if (_rigidbody.velocity.y > 0)
+                _rigidbody.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime * JumpSpeed;
         }
         
         private bool isGrounded()
