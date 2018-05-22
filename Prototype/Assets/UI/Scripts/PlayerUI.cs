@@ -10,18 +10,13 @@ using Assets.UI.Scripts;
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private Slider _oxygen;
-
     [SerializeField] private PlayerController _player;
-
     [SerializeField] private float _blowingOxygenDuration = 1f;
 
     private MenuUI _menu;
-
     private Gradient _oxygenColor;
-
     private Image _oxygenImage;
-
-    private Image _blowingOxygenImage;
+    private ParticleSystem _blowingOxygenParticleSystem;
 
     private void Awake()
     {
@@ -46,13 +41,10 @@ public class PlayerUI : MonoBehaviour
 
         _oxygen.maxValue = _player.MaxHealth;
         
-        var images = _oxygen.GetComponentsInChildren<Image>();
+        _oxygenImage = _oxygen.GetComponentsInChildren<Image>()
+            .First(child => string.Compare(child.name, "Oxygen", StringComparison.Ordinal) == 0);
 
-        _oxygenImage = images.First(child => string.Compare(child.name, "Oxygen", StringComparison.Ordinal) == 0);
-
-        _blowingOxygenImage = images.First(child => string.Compare(child.name, "BlowingOxygen", StringComparison.Ordinal) == 0);
-
-        _blowingOxygenImage.gameObject.SetActive(false);
+        _blowingOxygenParticleSystem = _oxygen.GetComponentInChildren<ParticleSystem>();
     }
     
     private void OnEnable()
@@ -86,7 +78,7 @@ public class PlayerUI : MonoBehaviour
     
     private void PlayerOnReceiveDamageEvent()
     {
-        StartCoroutine(showBlowingOxygen(_blowingOxygenImage));
+        _blowingOxygenParticleSystem.Play();
     }
 
     private IEnumerator showBlowingOxygen(Image oxygen)
