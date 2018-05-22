@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Timers;
 using Assets.Enemies.Scripts;
 using Assets.Planet.Scripts;
@@ -17,12 +19,14 @@ namespace Assets.Player.Scripts
     [RequireComponent(typeof(Rigidbody))]
     [RequireComponent(typeof(WeaponController))]
     [RequireComponent(typeof(Animator))]
+    [RequireComponent(typeof(AudioSource))]
     public class PlayerController : MonoBehaviour
     {
         private float _health;
         private Rigidbody _rigidbody;
         private WeaponController _weaponController;
         private Animator _animator;
+        private IDictionary<string, AudioSource> _audios;
 
         [SerializeField] private PlanetRotation _planet;
         [SerializeField] private float _enemyDamage = 15f;
@@ -59,6 +63,13 @@ namespace Assets.Player.Scripts
             _animator = GetComponent<Animator>();
 
             _weaponController = transform.GetChild(0).gameObject.GetComponent<WeaponController>();
+
+            _audios = new Dictionary<string, AudioSource>();
+
+            var audios = GetComponents<AudioSource>();
+
+            _audios.Add("jump", audios.First(a => string.Compare(a.clip.name, "player_jump", StringComparison.Ordinal) == 0));
+            _audios.Add("hurt", audios.First(a => string.Compare(a.clip.name, "player_hurt", StringComparison.Ordinal) == 0));
         }
 
         public void Start()
@@ -73,24 +84,24 @@ namespace Assets.Player.Scripts
             Health -= Time.deltaTime;
 
             if (Input.GetButtonDown("Fire")) _weaponController.Fire();
-
+            
             if (isGrounded())
             {
+                _animator.SetBool("IsGrounded", true);
+
+                if (_audios["jump"].isPlaying) _audios["jump"].Stop();
+
                 _planet.CanRotate = true;
 
-                if (Input.GetButtonDown("Jump"))
-                {
-                    _rigidbody.velocity = Vector3.up * Jump;
-
-                    // TODO change bool to float
-                    _animator.SetBool("Jump", true);
-                }
-                else _animator.SetBool("Jump", false);
-
+                if (Input.GetButtonDown("Jump")) _rigidbody.velocity = Vector3.up * Jump;
             }
             else
             {
                 _planet.CanRotate = false;
+
+                _animator.SetBool("IsGrounded", false);
+
+                if (!_audios["jump"].isPlaying) _audios["jump"].Play();
             }
         }
 
@@ -129,6 +140,8 @@ namespace Assets.Player.Scripts
 
                     break;
             }
+
+            _audios["hurt"].Play();
 
             if (OnReceiveDamageEvent != null) OnReceiveDamageEvent();
         }

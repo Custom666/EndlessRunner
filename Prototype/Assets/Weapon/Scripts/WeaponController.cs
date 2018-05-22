@@ -6,34 +6,38 @@ namespace Assets.Weapon.Scripts
     /// <summary>
     /// Controller that describe weapon mechanics
     /// </summary>
+    [RequireComponent(typeof(AudioSource))]
     public class WeaponController : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject Projectile;
+        [SerializeField] private GameObject _projectile;
+        [SerializeField] private float _speed = 15f;
+        [SerializeField] private float _aliveTime = 5f;
 
-        [SerializeField]
-        private float Speed = 15f;
-
-        [SerializeField]
-        private float Time = 5f;
-
+        private AudioSource _shootAudio;
         private int _lastFireTime;
-        
+
+        private void Awake()
+        {
+            _shootAudio = GetComponent<AudioSource>();
+        }
+
         public void Fire()
         {
-            if (_lastFireTime >= (int) UnityEngine.Time.fixedTime) return;
+            if (_lastFireTime >= (int) Time.fixedTime) return;
 
             var parent = GameObject.Find("MovablePlanet");
 
-            var projectile = Instantiate(Projectile, transform.position, Projectile.transform.rotation, parent.transform);
+            var projectile = Instantiate(_projectile, transform.position, _projectile.transform.rotation, parent.transform);
 
             Physics.IgnoreCollision(projectile.GetComponent<Collider>(), transform.parent.GetComponent<Collider>());
             
-            projectile.GetComponent<Rigidbody>().AddForce(transform.forward * Speed, ForceMode.Impulse);
+            projectile.GetComponent<Rigidbody>().AddForce(transform.forward * _speed, ForceMode.Impulse);
 
-            _lastFireTime = (int) UnityEngine.Time.fixedTime;
+            _shootAudio.Play();
+
+            _lastFireTime = (int) Time.fixedTime;
             
-            Destroy(projectile, Time);
+            Destroy(projectile, _aliveTime);
         }
     }
 }
