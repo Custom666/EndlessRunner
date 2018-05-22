@@ -1,7 +1,7 @@
 *
 !Assets/
 !ProjectSettings/
-!Release/
+!Release.zip
 !Prototype.csproj
 !Prototype.csproj.DotSettings
 !Prototype.Editor.csproj
