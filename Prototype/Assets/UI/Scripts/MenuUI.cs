@@ -90,9 +90,6 @@ namespace Assets.UI.Scripts
         
         public void GameOver()
         {
-#if UNITY_EDITOR
-            return;
-#endif
             if (GameState.IsGameOver) return;
 
             GameState.IsGameOver = true;
@@ -105,16 +102,6 @@ namespace Assets.UI.Scripts
             }
             
             Time.timeScale = 0f;
-        }
-
-        public void ToggleSound(AudioSource sound)
-        {
-            
-        }
-
-        public void ToggleMusic(AudioSource music)
-        {
-
         }
         
         private void SceneManagerOnSceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)

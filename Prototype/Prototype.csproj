@@ -296,6 +296,8 @@
     <Compile Include="Assets\Projectiles\Scripts\ProjectileController.cs" />
     <Compile Include="Assets\Tests\PlayerTest.cs" />
     <Compile Include="Assets\Tests\ProjectileTest.cs" />
+    <Compile Include="Assets\UI\Scripts\AudioHelper.cs" />
+    <Compile Include="Assets\UI\Scripts\ButtonHelper.cs" />
     <Compile Include="Assets\UI\Scripts\GameUI.cs" />
     <Compile Include="Assets\UI\Scripts\MenuUI.cs" />
     <Compile Include="Assets\UI\Scripts\PlayerUI.cs" />

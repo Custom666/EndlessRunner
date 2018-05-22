@@ -50,12 +50,24 @@ namespace Assets.Player.Scripts
             }
         }
 
+        public List<AudioSource> Audios
+        {
+            get
+            {
+                var audios = _audios.Values.ToList();
+
+                audios.Add(_weaponController.GetComponent<AudioSource>());
+
+                return audios;
+            }
+        }
+
         public delegate void OnHealthChanged(float health);
         public delegate void OnReceiveDamage();
 
         public static event OnHealthChanged OnHealthChangedEvent;
         public static event OnReceiveDamage OnReceiveDamageEvent;
-        
+
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
@@ -79,12 +91,17 @@ namespace Assets.Player.Scripts
 
         private void Update()
         {
-            if (GameState.IsGameOver) return;
+            if (GameState.IsGameOver)
+            {
+                if (_audios["jump"].isPlaying) _audios["jump"].Stop();
+
+                return;
+            }
 
             Health -= Time.deltaTime;
 
             if (Input.GetButtonDown("Fire")) _weaponController.Fire();
-            
+
             if (isGrounded())
             {
                 _animator.SetBool("IsGrounded", true);
@@ -112,7 +129,7 @@ namespace Assets.Player.Scripts
             else if (_rigidbody.velocity.y > 0)
                 _rigidbody.velocity += Vector3.up * Physics.gravity.y * Time.deltaTime * JumpSpeed;
         }
-        
+
         private bool isGrounded()
         {
             return Physics.Raycast(transform.position, Vector3.down, .2f);

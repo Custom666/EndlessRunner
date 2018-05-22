@@ -11,7 +11,6 @@ public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private Slider _oxygen;
     [SerializeField] private PlayerController _player;
-    [SerializeField] private float _blowingOxygenDuration = 1f;
 
     private MenuUI _menu;
     private Gradient _oxygenColor;
@@ -64,9 +63,6 @@ public class PlayerUI : MonoBehaviour
         if (health.CompareTo(0f) <= 0)
         {
             _menu.GameOver();
-#if UNITY_EDITOR
-            return;
-#endif
         }
         else
         {
@@ -79,14 +75,5 @@ public class PlayerUI : MonoBehaviour
     private void PlayerOnReceiveDamageEvent()
     {
         _blowingOxygenParticleSystem.Play();
-    }
-
-    private IEnumerator showBlowingOxygen(Image oxygen)
-    {
-        oxygen.gameObject.SetActive(true);
-
-        yield return new WaitForSeconds(_blowingOxygenDuration);
-
-        oxygen.gameObject.SetActive(false);
     }
 }
