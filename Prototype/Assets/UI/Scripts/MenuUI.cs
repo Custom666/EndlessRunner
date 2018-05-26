@@ -19,47 +19,41 @@ namespace Assets.UI.Scripts
     /// </summary>
     public class MenuUI : MonoBehaviour
     {
-        [CanBeNull] [SerializeField] private GameObject _gameMenu;
-        
-        private Button _gameMenuResumeButton;
+        [SerializeField] private GameObject _gameMenu;
 
         private void OnEnable()
         {
             SceneManager.sceneLoaded += SceneManagerOnSceneLoaded;
+            GameStateHelper.OnGameStateChangingEvent += OnGameStateChangingEvent;
         }
-
+        
         private void OnDisable()
         {
             SceneManager.sceneLoaded -= SceneManagerOnSceneLoaded;
-        }
-        
-        private void Awake()
-        {
-            if (_gameMenu == null) return;
-            
-            _gameMenuResumeButton = _gameMenu.GetComponentsInChildren<Button>()
-                .FirstOrDefault(child => string.Compare(child.name, "ResumeButton", StringComparison.Ordinal) == 0);
+            GameStateHelper.OnGameStateChangingEvent -= OnGameStateChangingEvent;
         }
 
         private void Update()
         {
-            if (Input.GetButtonDown("Pause") && !GameState.IsGameOver)
+            if (GameStateHelper.GameState == GameState.GameOver) return;
+
+            if (Input.GetButtonDown("Pause"))
             {
-                if (!GameState.IsPause) Pause();
-                else Resume();
+                if (GameStateHelper.GameState == GameState.Pause) Resume();
+                else if (GameStateHelper.GameState != GameState.Pause) Pause();
             }
         }
 
         public void Quit()
         {
-            Application.Quit();    
+            Application.Quit();
         }
-        
+
         public void PlayLevel(string name)
         {
             if (!Application.CanStreamedLevelBeLoaded(name))
                 throw new FileNotFoundException(string.Format("Scene with name {0} do not exist"), name);
-            
+
             Time.timeScale = 1f;
 
             SceneManager.LoadScene(name);
@@ -67,7 +61,9 @@ namespace Assets.UI.Scripts
 
         public void Pause()
         {
-            GameState.IsPause = true;
+            if (_gameMenu == null) return;
+
+            GameStateHelper.GameState = GameState.Pause;
 
             _gameMenu.SetActive(true);
 
@@ -76,7 +72,9 @@ namespace Assets.UI.Scripts
 
         public void Resume()
         {
-            GameState.IsPause = false;
+            if (_gameMenu == null) return;
+
+            GameStateHelper.GameState = GameState.Playing;
 
             _gameMenu.SetActive(false);
 
@@ -87,27 +85,48 @@ namespace Assets.UI.Scripts
         {
             PlayLevel(SceneManager.GetActiveScene().name);
         }
-        
+
         public void GameOver()
         {
-            if (GameState.IsGameOver) return;
-
-            GameState.IsGameOver = true;
-            
-            if (_gameMenu != null)
-            {
-                _gameMenuResumeButton.gameObject.SetActive(false);
-
-                _gameMenu.SetActive(true);
-            }
+            GameStateHelper.GameState = GameState.GameOver;
             
             Time.timeScale = 0f;
         }
         
-        private void SceneManagerOnSceneLoaded(Scene arg0, LoadSceneMode loadSceneMode)
+        private void SceneManagerOnSceneLoaded(Scene scene, LoadSceneMode loadSceneMode)
         {
-            GameState.IsGameOver = false;
-            GameState.IsPause = false;
+            GameStateHelper.GameState = scene.name.ToLower().Contains("level") ? GameState.Playing : GameState.Menu;
+        }
+
+        private void OnGameStateChangingEvent()
+        {
+            if(_gameMenu == null) return;
+
+            var buttons = _gameMenu.GetComponentsInChildren<Button>();
+
+            switch (GameStateHelper.GameState)
+            {
+                case GameState.Menu:
+
+                    foreach (var button in buttons)
+                        button.gameObject.SetActive(
+                            !button.name.ToLower().Contains("restart") && 
+                            !button.name.ToLower().Contains("menu"));
+                    
+                    break;
+
+                case GameState.Pause:
+
+                    foreach (var button in buttons) button.gameObject.SetActive(true);
+                    
+                    break;
+
+                case GameState.GameOver:
+
+                    foreach (var button in buttons) button.gameObject.SetActive(!button.name.ToLower().Contains("resume"));
+
+                    break;
+            }
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.UI.Scripts;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
@@ -8,7 +9,7 @@ using UnityEngine.Video;
 [RequireComponent(typeof(MenuUI))]
 public class SkipIntro : MonoBehaviour
 {
-    [SerializeField] private string _levelToLoad;
+    [NotNull] [SerializeField] private string _levelToLoad;
     [SerializeField] private VideoPlayer _videoPlayer;
 
     private MenuUI _menu;
@@ -41,6 +42,7 @@ public class SkipIntro : MonoBehaviour
                 _skipText.color.b,
                 Mathf.Lerp(_skipText.color.a, 255, Time.deltaTime / 5000));
 
-        if (Input.GetKeyDown(KeyCode.Space)) _menu.PlayLevel(_levelToLoad);
+        if (Input.GetKeyDown(KeyCode.Space))
+            _menu.PlayLevel(_levelToLoad);
     }
 }

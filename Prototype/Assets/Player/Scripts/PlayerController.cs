@@ -91,7 +91,7 @@ namespace Assets.Player.Scripts
 
         private void Update()
         {
-            if (GameState.IsGameOver)
+            if (GameStateHelper.GameState == GameState.GameOver)
             {
                 if (_audios["jump"].isPlaying) _audios["jump"].Stop();
 

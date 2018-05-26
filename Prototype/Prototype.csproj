@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.3.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion>4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -284,7 +286,7 @@
   <ItemGroup>
     <Compile Include="Assets\Enemies\Scripts\EnemyController.cs" />
     <Compile Include="Assets\FramerateCapturer.cs" />
-    <Compile Include="Assets\GameState.cs" />
+    <Compile Include="Assets\GameStateHelper.cs" />
     <Compile Include="Assets\Obstacles\Scripts\Obstacle.cs" />
     <Compile Include="Assets\Obstacles\Scripts\ObstaclesController.cs" />
     <Compile Include="Assets\Obstacles\Scripts\SpawnController.cs" />
@@ -297,7 +299,7 @@
     <Compile Include="Assets\Tests\PlayerTest.cs" />
     <Compile Include="Assets\Tests\ProjectileTest.cs" />
     <Compile Include="Assets\UI\Scripts\AudioHelper.cs" />
-    <Compile Include="Assets\UI\Scripts\ButtonHelper.cs" />
+    <Compile Include="Assets\UI\Scripts\AudioButtonHelper.cs" />
     <Compile Include="Assets\UI\Scripts\GameUI.cs" />
     <Compile Include="Assets\UI\Scripts\MenuUI.cs" />
     <Compile Include="Assets\UI\Scripts\PlayerUI.cs" />
