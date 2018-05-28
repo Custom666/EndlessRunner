@@ -8,8 +8,7 @@ namespace Assets.Planet.Scripts
     [RequireComponent(typeof(Renderer))]
     public class MaterialTranslation : MonoBehaviour
     {
-        [SerializeField]
-        private RotationSpeedManager SpeedManager;
+        [SerializeField] private RotationSpeedManager SpeedManager;
         
         private Renderer _renderer;
 
@@ -20,7 +19,7 @@ namespace Assets.Planet.Scripts
         }
 
         // Update is called once per frame
-        private void FixedUpdate()
+        private void LateUpdate()
         {
             _renderer.material.mainTextureOffset += new Vector2 (SpeedManager.Speed * Time.deltaTime / 360f, 0f);
         }

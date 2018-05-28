@@ -285,7 +285,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Enemies\Scripts\EnemyController.cs" />
-    <Compile Include="Assets\FramerateCapturer.cs" />
     <Compile Include="Assets\GameStateHelper.cs" />
     <Compile Include="Assets\Obstacles\Scripts\Obstacle.cs" />
     <Compile Include="Assets\Obstacles\Scripts\ObstaclesController.cs" />
@@ -298,9 +297,10 @@
     <Compile Include="Assets\Projectiles\Scripts\ProjectileController.cs" />
     <Compile Include="Assets\Tests\PlayerTest.cs" />
     <Compile Include="Assets\Tests\ProjectileTest.cs" />
-    <Compile Include="Assets\UI\Scripts\AudioHelper.cs" />
     <Compile Include="Assets\UI\Scripts\AudioButtonHelper.cs" />
-    <Compile Include="Assets\UI\Scripts\GameUI.cs" />
+    <Compile Include="Assets\UI\Scripts\AudioHelper.cs" />
+    <Compile Include="Assets\UI\Scripts\CreditsController.cs" />
+    <Compile Include="Assets\UI\Scripts\EnemyUI.cs" />
     <Compile Include="Assets\UI\Scripts\MenuUI.cs" />
     <Compile Include="Assets\UI\Scripts\PlayerUI.cs" />
     <Compile Include="Assets\UI\Scripts\SkipIntro.cs" />

@@ -68,7 +68,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1487100040512802}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.1}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_Children:
   - {fileID: 4125521691766312}
@@ -154,8 +154,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da120d61dd28810468cccdc3b18488d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShootDistance: 20
-  FireInterval: 1.5
 --- !u!114 &114744585017654702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -167,9 +165,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5e4306db966c204086faa66c1b2619a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 1679942828408894, guid: e23ac8fdab4ce214f91f3800c2b8fea2, type: 2}
-  Speed: 30
-  Time: 3
+  _projectile: {fileID: 0}
+  _speed: 15
+  _aliveTime: 5
 --- !u!136 &136376849331541854
 CapsuleCollider:
   m_ObjectHideFlags: 1

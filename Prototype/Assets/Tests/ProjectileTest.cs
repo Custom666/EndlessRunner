@@ -2,8 +2,6 @@
 using UnityEngine.TestTools;
 using NUnit.Framework;
 using System.Collections;
-using Assets.Player.Scripts;
-using Assets.Projectiles.Scripts;
 
 public class ProjectileTest
 {

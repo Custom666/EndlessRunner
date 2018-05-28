@@ -1,6 +1,4 @@
-﻿using Assets.Player.Scripts;
-using Assets.Weapon.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Projectiles.Scripts
 {

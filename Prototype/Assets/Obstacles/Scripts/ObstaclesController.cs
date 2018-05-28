@@ -1,5 +1,4 @@
-﻿using System;
-using Assets.Planet.Scripts;
+﻿using Assets.Planet.Scripts;
 using UnityEngine;
 
 namespace Assets.Obstacles.Scripts

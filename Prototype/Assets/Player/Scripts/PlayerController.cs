@@ -1,15 +1,10 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Timers;
-using Assets.Enemies.Scripts;
 using Assets.Planet.Scripts;
 using Assets.Weapon.Scripts;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Experimental.Rendering;
-using UnityEngine.UI;
 
 namespace Assets.Player.Scripts
 {
@@ -153,14 +148,32 @@ namespace Assets.Player.Scripts
                     break;
                 case "Crater":
 
-                    Health = 0f;
+                    StartCoroutine(FallIntoCraterDeath());
 
                     break;
             }
 
             _audios["hurt"].Play();
 
+            _animator.SetTrigger("GettingDamage");
+
             if (OnReceiveDamageEvent != null) OnReceiveDamageEvent();
+        }
+
+        private IEnumerator FallIntoCraterDeath()
+        {
+            Time.timeScale = 0.1f;
+
+            var yPosition = transform.position.y;
+
+            yield return new WaitUntil(() =>
+            {
+                _rigidbody.transform.position -= new Vector3(0f, 0.2f, 0f);
+
+                return Math.Abs(_rigidbody.transform.position.y - yPosition) > 5f;
+            });
+            
+            Health = 0f;
         }
     }
 }

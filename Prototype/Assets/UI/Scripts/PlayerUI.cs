@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Assets.Player.Scripts;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,8 +9,8 @@ public class PlayerUI : MonoBehaviour
 {
     [SerializeField] private Slider _oxygen;
     [SerializeField] private PlayerController _player;
+    [SerializeField] private MenuUI _menu;
 
-    private MenuUI _menu;
     private Gradient _oxygenColor;
     private Image _oxygenImage;
     private ParticleSystem _blowingOxygenParticleSystem;
@@ -35,9 +33,7 @@ public class PlayerUI : MonoBehaviour
 
             mode = GradientMode.Blend
         };
-
-        _menu = GetComponentInParent<MenuUI>();
-
+        
         _oxygen.maxValue = _player.MaxHealth;
         
         _oxygenImage = _oxygen.GetComponentsInChildren<Image>()
@@ -62,7 +58,7 @@ public class PlayerUI : MonoBehaviour
     {
         if (health.CompareTo(0f) <= 0)
         {
-            _menu.GameOver();
+            _menu.GameOver(false);
         }
         else
         {

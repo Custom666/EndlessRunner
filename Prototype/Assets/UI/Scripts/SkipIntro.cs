@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using Assets.UI.Scripts;
+﻿using Assets.UI.Scripts;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;

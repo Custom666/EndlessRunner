@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Obstacles.Scripts
 {
@@ -11,15 +10,16 @@ namespace Assets.Obstacles.Scripts
         /// <summary>
         /// Determine if player can jump over this obstacle
         /// </summary>
-        [SerializeField]
-        public bool IsTransportable = false;
+        [SerializeField] public bool IsTransportable = false;
 
         private void OnTriggerEnter(Collider other)
         {
             switch (other.gameObject.name)
             {
                 case "Destroyer":
-                    Destroy(gameObject);
+                    
+                    Destroy(gameObject, 1f);
+
                     break;
             }
         }
